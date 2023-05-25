@@ -5,16 +5,19 @@
         <v-select
           v-if="question.type === 'SELECT'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
           :item-value="item => (item)"
           :multiple="!!question.multiple"
+          required
         />
 
         <v-autocomplete
           v-if="question.type === 'AUTOCOMPLETE'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
@@ -26,6 +29,7 @@
         <v-combobox
           v-if="question.type === 'COMBOBOX'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
@@ -37,12 +41,14 @@
         <v-text-field
           v-if="question.type === 'INPUT'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
         />
 
         <v-textarea
           v-if="question.type === 'TEXTAREA'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
         />
 
@@ -56,8 +62,10 @@
             v-for="(item) in question.items"
             :key="item"
             v-model="question.response"
+            :rules="rules"
             :label="item"
             :value="item"
+            multiple
           />
         </v-container>
 
@@ -67,11 +75,11 @@
           </p>
           <v-radio-group
             v-model="question.response"
+            :rules="rules"
           >
             <v-radio
               v-for="(item) in question.items"
               :key="item"
-              v-model="question.response"
               :label="item"
               :value="item"
             />
@@ -81,6 +89,7 @@
         <v-switch
           v-if="question.type === 'SWITCH'"
           v-model="question.response"
+          :rules="rules"
           :label="question.question"
         />
       </v-col>
@@ -96,6 +105,20 @@ export default {
     forms: {
       type: Array,
       required: true
+    }
+  },
+
+  data () {
+    return {
+      rules: [
+        (value) => {
+          if (value.length || Object.keys(value).length) {
+            return true
+          }
+
+          return 'Este campo no puede estar vacío.'
+        }
+      ]
     }
   }
 }
