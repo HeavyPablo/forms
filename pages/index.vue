@@ -26,12 +26,55 @@
                 :loading="sending"
                 class="white--text"
                 color="primary"
-                @click="send()"
+                @click="prepareSending = true"
               >
-                Confirmar y enviar
+                Enviar
               </v-btn>
             </v-card-actions>
           </v-card>
+
+          <v-dialog
+            v-model="prepareSending"
+            width="500"
+          >
+            <v-card color="surface">
+              <v-card-text class="pa-5">
+                <div v-for="(question, index) in form.form" :key="index" class="mb-5">
+                  <p class="font-weight-bold mb-0">
+                    {{ question.question }}
+                  </p>
+                  <v-divider />
+                  <span v-if="question.response.value">
+                    {{ question.response.value }}
+                  </span>
+                  <span v-else-if="question.response">
+                    {{ question.response }}
+                  </span>
+                  <span v-else class="font-italic">Sin información</span>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  :disabled="sending"
+                  :loading="sending"
+                  color="secondary"
+                  @click="prepareSending = false"
+                >
+                  Cerrar
+                </v-btn>
+                <v-btn
+                  :disabled="sending"
+                  :loading="sending"
+                  class="white--text"
+                  color="primary"
+                  @click="send()"
+                >
+                  Confirmar y enviar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
           <v-dialog
             v-model="sending"
@@ -87,6 +130,7 @@ export default {
       loaded: false,
       found: false,
       sending: false,
+      prepareSending: false,
       finished: false
     }
   },
@@ -109,6 +153,7 @@ export default {
     },
 
     send () {
+      this.prepareSending = false
       this.sending = true
 
       // TODO: send form post

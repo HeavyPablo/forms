@@ -8,7 +8,7 @@
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
-          :item-value="item => (item.id)"
+          :item-value="item => (item)"
           :multiple="!!question.multiple"
         />
 
@@ -18,7 +18,7 @@
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
-          :item-value="item => (item.id)"
+          :item-value="item => (item)"
           item-color="surface"
           :multiple="!!question.multiple"
         />
@@ -29,7 +29,7 @@
           :label="question.question"
           :items="question.items"
           :item-text="item => (item.value)"
-          :item-value="item => (item.id)"
+          :item-value="item => (item)"
           :multiple="!!question.multiple"
           chips
         />
