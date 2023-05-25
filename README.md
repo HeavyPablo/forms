@@ -1,3 +1,5 @@
+[![ci](https://github.com/HeavyPablo/forms/actions/workflows/ci.yml/badge.svg)](https://github.com/HeavyPablo/forms/actions/workflows/ci.yml)
+
 # forms
 
 ## Build Setup
